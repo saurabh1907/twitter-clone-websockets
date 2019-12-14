@@ -2,7 +2,7 @@ defmodule Project4bWeb.UserSocket do
   use Phoenix.Socket
 
   ## Channels
-  # channel "room:*", Project4bWeb.RoomChannel
+  channel "twitter", Project4b.ServerChannel
 
   # Socket params are passed from the client and can
   # be used to verify and authenticate a user. After

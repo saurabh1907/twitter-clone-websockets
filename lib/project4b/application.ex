@@ -40,7 +40,7 @@ defmodule Project4b.Application do
     User.start(username, server_ip, @port)
   end
 
-  defp start_simulation(server_ip, num_user, num_msg) do
+  def start_simulation(server_ip, num_user, num_msg) do
     Logger.info("Starting Sumulation")
     no_connections = div(num_user, 4)
     remaining= rem(num_user,4)
