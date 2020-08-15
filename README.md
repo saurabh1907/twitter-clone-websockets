@@ -128,7 +128,7 @@ Adding to feed for user when its offline
 ## Performance:
 Each client is a separate actor and the server delegate the tasks to specific genservers.
 Thus parallel processing has been utilized. The TCP socket has limit of 1000 conections but by sharing connections with multiple users many users can be concurrently handled.
-Tested the system stability for 700 nodes.
+Tested the system stability for 10000 nodes.
 
 ## Unit Testing:
 Several Unit test and functional test cases covering all the twitter functionalities are written.
