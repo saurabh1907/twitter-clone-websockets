@@ -1,6 +1,7 @@
 
 import {Socket} from "phoenix"
 
+
 let socket = new Socket("/socket", {params: {token: window.userToken}})
 socket.connect()
 
@@ -11,13 +12,12 @@ let channel = socket.channel("twitter", {})
 
 document.addEventListener("DOMContentLoaded", function(){
   // Handler when the DOM is fully loaded
-  console.log("loadefd")
-  channel.push('request', {username: "abc"});
+  console.log("joining channel")
+  channel.push('request', {data: "dummy"});
 });
 
 
 channel.on("output", payload => {
-  console.log("in browser")
   console.log(payload)
 });
 
@@ -26,3 +26,4 @@ channel.join()
   .receive("error", resp => { console.log("Unable to join", resp) })
 
 export default socket
+

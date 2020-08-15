@@ -1,23 +1,6 @@
 defmodule UserOperations do
   require Logger
 
-  def establish_connection(server_ip, port, username) do
-    :gen_tcp.connect(server_ip, port, [:binary, {:active, false}, {:packet, 0}])
-
-    # Logger.debug("Connecting to server")
-    # {:ok, pid} = PhoenixChannelClient.start_link()
-    # timeline_channel = channel_connect(pid, username, server_ip, port)
-
-    # if(status == :ok) do
-    #   Logger.debug("Connected")
-    # else
-    #   Logger.info "Server is not running"
-    #   Logger.info("Start server with: mix run proj4 server")
-    #   Logger.info("Start simulation on another console with: mix run proj4 num_user num_msg")
-    #   exit(:shutdown)
-    # end
-  end
-
   def register(server, username) do
     data = %{function: :register, username: username}
     send_message(server, data)
@@ -46,6 +29,23 @@ defmodule UserOperations do
   def unsubscribe(socket, users, username) do
     data = %{"function" => "unsubscribe", "users" => users, "username" => username}
     send_message(socket, data)
+  end
+
+  def establish_connection(server_ip, port, username) do
+    :gen_tcp.connect(server_ip, port, [:binary, {:active, false}, {:packet, 0}])
+
+    # Logger.debug("Connecting to server")
+    # {:ok, pid} = PhoenixChannelClient.start_link()
+    # timeline_channel = channel_connect(pid, username, server_ip, port)
+
+    # if(status == :ok) do
+    #   Logger.debug("Connected")
+    # else
+    #   Logger.info "Server is not running"
+    #   Logger.info("Start server with: mix run proj4 server")
+    #   Logger.info("Start simulation on another console with: mix run proj4 num_user num_msg")
+    #   exit(:shutdown)
+    # end
   end
 
   def perform_login(server, username) do

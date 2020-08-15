@@ -31,7 +31,11 @@ defmodule OperationService do
       hashTagValues = parts[:hashtags]
 
       for hashtag <- hashTagValues do
-        Logger.info("adding hashtag :#{hashtag} for tweet: #{tweet} to table")
+        random_number = :rand.uniform(10)
+        if(random_number > 9)do
+          send_output_to_browser("adding hashtag :#{hashtag} for tweet: #{tweet}")
+        end
+        Logger.debug("adding hashtag :#{hashtag} for tweet: #{tweet} to table")
         add_hashtag_tweet(hashtag, tweet)
       end
     end
@@ -40,7 +44,11 @@ defmodule OperationService do
       mentioned = parts[:mentions]
 
       for user <- mentioned do
-        Logger.info("adding mention: #{user} for tweet: #{tweet} to table")
+        random_number = :rand.uniform(10)
+        if(random_number > 9)do
+          send_output_to_browser("adding mention: #{user} for tweet: #{tweet} to table")
+        end
+        Logger.debug("adding mention: #{user} for tweet: #{tweet} to table")
         add_mention_tweet(user, tweet)
         mentioned_user = String.split(user, ["@", "+"], trim: true) |> List.first()
 
@@ -132,6 +140,11 @@ defmodule OperationService do
     port = find_user_port(to)
     status = find_user_status(to)
 
+    random_number = :rand.uniform(10)
+    if(random_number > 8)do
+      send_output_to_browser("Sending to: #{to} tweet: #{tweet}")
+    end
+
     if status == :online do
       Logger.debug("Sending to: #{to} tweet: #{tweet} on socket: #{inspect(port)}")
 
@@ -142,6 +155,10 @@ defmodule OperationService do
         "username" => to
       })
     else
+      random_number = :rand.uniform(10)
+        if(random_number > 9)do
+          send_output_to_browser("Adding to user feed as #{to} is not online")
+        end
       Logger.debug("Adding to user feed as #{to} is not online")
       add_user_feed(to, tweet)
     end
@@ -198,5 +215,10 @@ defmodule OperationService do
     else
       :queue.in(value, queue)
     end
+  end
+
+  def send_output_to_browser(msg)do
+    out_socket = :ets.lookup_element(:output, "socket",2)
+    Phoenix.Channel.broadcast! out_socket, "output", %{msg: msg}
   end
 end

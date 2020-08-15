@@ -133,7 +133,7 @@ defmodule UserSimulation do
   defp generate_random_tweet(len) do
     common_str = "  abcdefghijklmnopqrstuvwxyz  0123456789"
     # generate_random_str(len, common_str)
-    "my tweet"
+    "my tweet #tag"
   end
 
   defp zipf_constant(users) do
